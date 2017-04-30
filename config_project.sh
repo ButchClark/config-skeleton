@@ -12,54 +12,7 @@
 #  them with the input values.
 ########################################
 
-esc="\033"
-Clear="${esc}\0143" # Clear screen
-NC="${esc}[m"  # Color Reset
-
-#  Colors
-Red="${esc}[0;31m"
-Green="${esc}[0;32m"
-Blue="${esc}[0;34m"
-Orange="${esc}[38;5;208m"
-LBlue="${esc}[1;34m"
-
-
-function thumbsUp(){
-echo -e "${Orange}     _      "
-echo -e "   _| |     "
-echo -e " _| | |     "
-echo -e "| | | |     "
-echo -e "| | | | __  "
-echo -e "| | | |/  \\ "
-echo -e "|       /\\ \\"
-echo -e "|      /  \\/"
-echo -e "|      \\  /\\"
-echo -e "|       \\/ /"
-echo -e " \\        / "
-echo -e "  |     /   "
-echo -e "  |    |    "
-echo -e "            ${NC}"
-}
-function showTitle(){
-for i in {16..21} {20..16} {17..21} {20..16} {17..21} {20..16} {17..21} {20..16}; do echo -en "\033[48;5;${i}m \033[0m" ; done ; echo
-echo -e "${LBlue}    .-.       "
-echo -e "   (${Red}o${LBlue}.${Red}o${LBlue})      "
-echo -e "    |=|       "
-echo -e "   __|__      "
-echo -e " //.=|=.\\    "
-echo -e "// .=|=. \\   "
-echo -e " \\ .=|=. //   "
-echo -e "  \\(_=_)//    "
-echo -e "  (:| |:)     "
-echo -e "   || ||      "
-echo -e "   () () ------------------------------"
-echo -e "   || || ${Orange}Config Beacon Skeleton Project${LBlue}"
-echo -e "   || || ------------------------------"
-echo -e "  ==' '==     "
-for i in {16..21} {20..16} {17..21} {20..16} {17..21} {20..16} {17..21} {20..16}; do echo -en "\033[48;5;${i}m \033[0m" ; done ; echo
-echo -e "${NC}"
-}
-
+source ./term_helper.sh
 
 echo -e "${Clear}"
 showTitle
@@ -78,17 +31,22 @@ printf "Enter your ${Orange}REST Endpoint suffix${NC}(i.e. lookupCommitment): ";
 
 echo -e "---------------------------------------"
 echo -e " Using the following values:"
-echo -e " Git Project name  :  $gitproject"
-echo -e " User Friendly name:  $userfriendly"
-echo -e " Pascal-case name  :  $pascalcase"
-echo -e " Java package name :  $pkgname"
-echo -e " Ruby Friendly name:  $rubyfriendly"
-echo -e " System Env name   :  $uppercased"
+echo -e " ${Orange}Git Project name  ${NC}:  ${Yellow}$gitproject${NC}"
+echo -e " ${Orange}User Friendly name${NC}:  ${Yellow}$userfriendly${NC}"
+echo -e " ${Orange}Pascal-case name  ${NC}:  ${Yellow}$pascalcase${NC}"
+echo -e " ${Orange}Java package name ${NC}:  ${Yellow}$pkgname${NC}"
+echo -e " ${Orange}Ruby Friendly name${NC}:  ${Yellow}$rubyfriendly${NC}"
+echo -e " ${Orange}System Env name   ${NC}:  ${Yellow}$uppercased${NC}"
+echo -e " ${Orange}Port Number       ${NC}:  ${Yellow}$portnumber${NC}"
+echo -e " ${Orange}Simulator Port    ${NC}:  ${Yellow}$simulatorport${NC}"
+echo -e " ${Orange}REST Endpoint     ${NC}:  ${Yellow}$restendpoint${NC}"
+echo -e " ${Orange}REST Success Msg  ${NC}:  ${Yellow}$restsuccess${NC}"
+echo -e " ${Orange}REST Endpt Suffix ${NC}:  ${Yellow}$restsuffix${NC}"
 echo -e "---------------------------------------"
 
 read -p "Continue? (y/n): " contin
 uc="$(echo -e "$contin" | tr '[:lower:]' '[:upper:]')"
-if [[ "${uc:1:1}" == "N" ]];
+if [[ "${uc:0:1}" == "N" ]];
 then 
 	echo -e "Aborting config..."
 	exit 0
