@@ -53,6 +53,9 @@ then
 fi
 
 echo -e "Well, okay, let's do it..."
+rm -rf ./.git
+rm -rf ./.idea
+echo -e "${Green}Removed git and idea Directories.${NC}"
 
 pushd src/main/java/com/dish/ofm/service/PACKAGE_NAME/config
 mv APPLICATION_NAMEConfig.java ${pascalcase}Config.java
@@ -99,8 +102,8 @@ do
 done
 echo -e "${Green}Replaced tags in all source files...${NC}" 
 echo -e "Updates complete.  "
+gradle clean build
+echo -e "gradle complete.  "
 thumbsUp
 echo -e "Exiting..."
-
-
-
+open -a /Applications/IntelliJ\ IDEA.app .
