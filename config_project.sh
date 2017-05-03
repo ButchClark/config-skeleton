@@ -53,33 +53,44 @@ then
 fi
 
 echo -e "Well, okay, let's do it..."
+mkdir ../${gitproject}
+cp -r . ../${gitproject}
+
+pushd ../${gitproject}/
 rm -rf ./.git
 rm -rf ./.idea
 echo -e "${Green}Removed git and idea Directories.${NC}"
+popd
 
-pushd src/main/java/com/dish/ofm/service/PACKAGE_NAME/config
+pushd ../${gitproject}/src/main/java/com/dish/ofm/service/PACKAGE_NAME/config
 mv APPLICATION_NAMEConfig.java ${pascalcase}Config.java
 popd
 
-pushd src/main/java/com/dish/ofm/service
+pushd ../${gitproject}/src/main/java/com/dish/ofm/service
 mv APPLICATION_NAMEApplication.java ${pascalcase}Application.java
 popd
 
-pushd src/main/java/com/dish/ofm/service/PACKAGE_NAME/controller
+pushd ../${gitproject}/src/main/java/com/dish/ofm/service/PACKAGE_NAME/controller
 mv APPLICATION_NAMEController.java ${pascalcase}Controller.java
 popd
 echo -e "${Green}Renamed java files...${NC}"
-mv src/main/java/com/dish/ofm/service/PACKAGE_NAME src/main/java/com/dish/ofm/service/${pkgname}
+
+pushd ../${gitproject}/src/main/java/com/dish/ofm/service
+mv PACKAGE_NAME ${pkgname}
+popd
 echo -e "${Green}Renamed source Directory to ${pkgname}...${NC}"
 
-pushd src/test/java/com/dish/ofm/service/PACKAGE_NAME/controller
+pushd ../${gitproject}/src/test/java/com/dish/ofm/service/PACKAGE_NAME/controller
 mv APPLICATION_NAMEControllerTest.java ${pascalcase}ControllerTest.java
 popd
 echo -e "${Green}Renamed java test files...${NC}"
-mv src/test/java/com/dish/ofm/service/PACKAGE_NAME src/test/java/com/dish/ofm/service/${pkgname}
+
+pushd ../${gitproject}/src/test/java/com/dish/ofm/service
+mv PACKAGE_NAME ${pkgname}
+popd
 echo -e "${Green}Renamed source Directory to ${pkgname}...${NC}"
 
-pushd acceptance/spec/helpers
+pushd ../${gitproject}/acceptance/spec/helpers
 mv LOWER_UNDERSCORE_NAME_server.rb ${rubyfriendly}_server.rb
 echo -e "${Green}Renamed ruby test files...${NC}"
 popd
@@ -106,4 +117,6 @@ gradle clean build
 echo -e "gradle complete.  "
 thumbsUp
 echo -e "Exiting..."
+
+cd ../${gitproject}
 open -a /Applications/IntelliJ\ IDEA.app .
