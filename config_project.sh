@@ -113,10 +113,17 @@ do
 done
 echo -e "${Green}Replaced tags in all source files...${NC}" 
 echo -e "Updates complete.  "
+
+echo -e "${LBlue}running gradle clean build...${NC}"
 gradle clean build
-echo -e "gradle complete.  "
+echo -e "${Green}gradle complete. ${NC} "
 thumbsUp
 echo -e "Exiting..."
 
 cd ../${gitproject}
+git init
+git add .
+git commit -m "initial checkin"
+#git remote add origin 
+
 open -a /Applications/IntelliJ\ IDEA.app .
